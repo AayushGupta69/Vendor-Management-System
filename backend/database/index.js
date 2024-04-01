@@ -17,9 +17,23 @@ const vendor = mongoose.model("Vendor", vendorSchema);
 const purchaseOrder = mongoose.model("Purchase Order", purchaseOrderSchema);
 const historicalPerformance = mongoose.model("Historical Performance", historicalPerformanceSchema);
 
+async function createVendor(name, contactDetails, address, vendorCode, onTimeDeliveryRate = 0, qualityRatingAvg = 0, averageResponseTime = 0, fulfillmentRate = 0){
+    return await vendor.create({
+        name,
+        contactDetails,
+        address,
+        vendorCode,
+        onTimeDeliveryRate,
+        qualityRatingAvg,
+        averageResponseTime,
+        fulfillmentRate
+    });
+}
+
 module.exports = {
     connectToMongoDB,
     vendor,
     purchaseOrder,
-    historicalPerformance
+    historicalPerformance,
+    createVendor
 }
