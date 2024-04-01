@@ -1,7 +1,9 @@
 const express = require("express");
 const { connectToMongoDB } = require("./database");
-
+const rootRouter = require("./routes/index");
 const app = express();
+
+app.use("/api", rootRouter);
 
 connectToMongoDB();
 
