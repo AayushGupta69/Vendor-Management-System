@@ -1,8 +1,9 @@
 const express = require("express");
-const {vendorExists, createVendor, vendor, verifyPassword} = require("../database");
+const {vendorExists, createVendor, vendor, verifyPassword, hashPassword} = require("../database");
 const zodVendor = require("../zod/zod-vendor");
 const signInBody = require("../zod/signInBody");
 const jwt = require("jsonwebtoken");
+const updateBody = require("../zod/updateBody");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -78,6 +79,31 @@ router.get("/:vendorCode", async (req, res) => {
     catch (e) {
         console.error("Error during retrieving vendor details", e);
         return res.status(500).json({message: "Failed to retrieve vendor details."});
+    }
+})
+
+router.put("/:vendorCode", async (req, res) => {
+    try {
+        const vendorCode = req.params.vendorCode;
+        const {success, data} = updateBody.safeParse(req.body);
+        if(!success){
+            return res.status(400).json({message: "Invalid vendor data"});
+        }
+
+        if(data.password){
+            data.password = await hashPassword(data.password, 10);
+        }
+
+        const updateSuccess = await vendor.updateOne({vendorCode}, data);
+        if(updateSuccess.nModified === 0){
+            return res.status(404).json({message: "Vendor not found or no changes were made."});
+        }
+
+        return res.status(200).json({message: "Successfully updated vendor details."});
+    }
+    catch (e) {
+        console.error("Error while updating vendor details: ", e);
+        return res.status(500).json({message: "Internal Server Error"});
     }
 })
 

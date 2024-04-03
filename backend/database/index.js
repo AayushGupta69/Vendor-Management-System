@@ -72,5 +72,6 @@ module.exports = {
     historicalPerformance,
     vendorExists,
     createVendor,
+    hashPassword,
     verifyPassword
 }
