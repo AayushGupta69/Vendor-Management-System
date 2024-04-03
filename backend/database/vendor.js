@@ -21,6 +21,11 @@ const vendorSchema = new mongoose.Schema({
         unique: true,
         trim: true
     },
+    password: {
+        type: String,
+        required: true,
+        minLength: 8
+    },
     onTimeDeliveryRate: Number,
     qualityRatingAvg: Number,
     averageResponseTime: Number,
