@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
 
         const newVendor = await createVendor(data);
 
-        return res.status(201).json({message: "Vendor created successfully"});
+        return res.status(201).json({message: "Vendor created successfully", vendor: newVendor});
     }
     catch (e) {
         console.error("Error creating vendor:", e);
