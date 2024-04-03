@@ -47,7 +47,7 @@ router.post("/signin", async (req, res) => {
 
         const existingVendor = await vendorExists(data);
         if(!existingVendor){
-            return res.status(403).json({message: "Vendor doesn't exists. Please signup first."});
+            return res.status(404).json({message: "Vendor doesn't exists. Please signup first."});
         }
 
         const verified = await verifyPassword(data.password, existingVendor.password);
@@ -62,6 +62,22 @@ router.post("/signin", async (req, res) => {
     catch (e) {
         console.error("Error during sign-in: ", e);
         return res.status(500).json({message: "Failed to sign in."});
+    }
+})
+
+router.get("/:vendorCode", async (req, res) => {
+    try {
+        const vendorCode = req.params.vendorCode;
+        const foundVendor = await vendor.findOne({vendorCode});
+        if(!foundVendor){
+            return res.status(404).json({message: "Vendor not found."});
+        }
+
+        return res.status(200).json({foundVendor});
+    }
+    catch (e) {
+        console.error("Error during retrieving vendor details", e);
+        return res.status(500).json({message: "Failed to retrieve vendor details."});
     }
 })
 
