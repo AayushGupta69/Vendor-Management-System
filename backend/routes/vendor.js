@@ -107,4 +107,20 @@ router.put("/:vendorCode", async (req, res) => {
     }
 })
 
+router.delete("/:vendorCode", async (req, res) => {
+    try {
+        const vendorCode = req.params.vendorCode;
+        const success = await vendor.deleteOne({vendorCode});
+        if(success.deletedCount === 0){
+            return res.status(404).json({ message: "Error deleting vendor" });
+        }
+
+        return res.status(200).json({ message: "Vendor deleted successfully" });
+    }
+    catch (e) {
+        console.error("Error while deleting vendor details: ", e);
+        return res.status(500).json({message: "Internal Server Error"});
+    }
+})
+
 module.exports = router;
