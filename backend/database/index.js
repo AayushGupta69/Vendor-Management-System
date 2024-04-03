@@ -36,6 +36,20 @@ async function hashPassword(password, saltRounds){
     })
 }
 
+async function verifyPassword(password, hash){
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(password, hash, (err, result) => {
+            if(err){
+                console.error("Error verifying password: ", err);
+                reject();
+            }
+            else{
+                resolve(result);
+            }
+        })
+    })
+}
+
 async function createVendor({name, contactDetails, address, vendorCode, password, onTimeDeliveryRate = 0, qualityRatingAvg = 0, averageResponseTime = 0, fulfillmentRate = 0}){
     const hashPass = await hashPassword(password, 10);
     return await vendor.create({
@@ -57,5 +71,6 @@ module.exports = {
     purchaseOrder,
     historicalPerformance,
     vendorExists,
-    createVendor
+    createVendor,
+    verifyPassword
 }

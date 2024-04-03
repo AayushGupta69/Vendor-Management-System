@@ -1,7 +1,8 @@
 const express = require("express");
-const {vendorExists, createVendor, vendor} = require("../database");
+const {vendorExists, createVendor, vendor, verifyPassword} = require("../database");
 const zodVendor = require("../zod/zod-vendor");
-
+const signInBody = require("../zod/signInBody");
+const jwt = require("jsonwebtoken");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -34,6 +35,33 @@ router.get("/", async (req, res) => {
     catch (e) {
         console.error("Error fetching vendors:", e);
         return res.status(500).json({ message: "Failed to fetch vendors" });
+    }
+})
+
+router.post("/signin", async (req, res) => {
+    try {
+        const {success, data} = signInBody.safeParse(req.body);
+        if(!success){
+            return res.status(400).json({message: "Invalid vendorCode or password"});
+        }
+
+        const existingVendor = await vendorExists(data);
+        if(!existingVendor){
+            return res.status(403).json({message: "Vendor doesn't exists. Please signup first."});
+        }
+
+        const verified = await verifyPassword(data.password, existingVendor.password);
+        if(!verified){
+            return res.status(403).json({message: "Incorrect password. Please double-check your password and try again."})
+        }
+
+        const token = jwt.sign({vendorCode: existingVendor.vendorCode}, process.env.JWT_SECRET);
+
+        return res.status(200).json({token});
+    }
+    catch (e) {
+        console.error("Error during sign-in: ", e);
+        return res.status(500).json({message: "Failed to sign in."});
     }
 })
 
