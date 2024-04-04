@@ -26,10 +26,10 @@ const vendorSchema = new mongoose.Schema({
         required: true,
         minLength: 8
     },
-    onTimeDeliveryRate: Number,
-    qualityRatingAvg: Number,
-    averageResponseTime: Number,
-    fulfillmentRate: Number
+    onTimeDeliveryRate: {type: Number, default: 0},
+    qualityRatingAvg: {type: Number, default: 0},
+    averageResponseTime: {type: Number, default: 0},
+    fulfillmentRate: {type: Number, default: 0}
 })
 
 module.exports = vendorSchema;

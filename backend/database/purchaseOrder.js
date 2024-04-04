@@ -24,7 +24,7 @@ const purchaseOrderSchema = new mongoose.Schema({
         required: true
     },
     items: {
-        type: JSON,
+        type: mongoose.Schema.Types.Mixed,
         required: true
     },
     quantity: {
@@ -33,14 +33,21 @@ const purchaseOrderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        required: true
+        enum: ["pending", "completed", "canceled"],
+        default: "pending"
     },
-    qualityRating: Number,
+    qualityRating: {
+        type: Number,
+        default: null
+    },
     issueDate: {
         type: Date,
-        required: true
+        default: Date.now()
     },
-    acknowledgementDate: Date 
+    acknowledgementDate: {
+        type: Date,
+        default: null
+    }
 })
 
 module.exports = purchaseOrderSchema;
