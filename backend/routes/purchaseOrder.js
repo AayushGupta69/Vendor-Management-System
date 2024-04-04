@@ -1,6 +1,6 @@
 const express = require("express");
 const zodPurchaseOrder = require("../zod/zod-purchaseOrder");
-const {purchaseOrderExists, createPurchaseOrder} = require("../database");
+const {purchaseOrderExists, createPurchaseOrder, purchaseOrder} = require("../database");
 
 const router = express.Router();
 
@@ -23,6 +23,24 @@ router.post("/", async (req, res) => {
     catch (e) {
         console.error("Error creating purchase order:", e);
         return res.status(500).json({message: "Failed to create purchase order"});
+    }
+})
+
+router.get("/", async (req, res) => {
+    try {
+        const filter = req.query.filter || "";
+        const purchaseOrders = await purchaseOrder.find({
+            $or: [{
+                vendor: {
+                    "$regex": filter,
+                }
+            }]
+        })
+        return res.status(200).json({purchaseOrders});
+    }
+    catch (e) {
+        console.error("Error fetching purchase orders:", e);
+        return res.status(500).json({ message: "Failed to fetch purchase orders" });
     }
 })
 
