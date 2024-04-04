@@ -50,19 +50,30 @@ async function verifyPassword(password, hash){
     })
 }
 
-async function createVendor({name, contactDetails, address, vendorCode, password, onTimeDeliveryRate = 0, qualityRatingAvg = 0, averageResponseTime = 0, fulfillmentRate = 0}){
+async function createVendor({name, contactDetails, address, vendorCode, password, onTimeDeliveryRate, qualityRatingAvg, averageResponseTime, fulfillmentRate}){
     const hashPass = await hashPassword(password, 10);
-    return await vendor.create({
+    const vendorData = {
         name,
         contactDetails,
         address,
         vendorCode,
-        password: hashPass,
-        onTimeDeliveryRate,
-        qualityRatingAvg,
-        averageResponseTime,
-        fulfillmentRate
-    });
+        password: hashPass
+    }
+
+    if (onTimeDeliveryRate !== undefined) {
+        vendorData.onTimeDeliveryRate = onTimeDeliveryRate;
+    }
+    if (qualityRatingAvg !== undefined) {
+        vendorData.qualityRatingAvg = qualityRatingAvg;
+    }
+    if (averageResponseTime !== undefined) {
+        vendorData.averageResponseTime = averageResponseTime;
+    }
+    if (fulfillmentRate !== undefined) {
+        vendorData.fulfillmentRate = fulfillmentRate;
+    }
+
+    return vendor.create(vendorData);
 }
 
 module.exports = {
