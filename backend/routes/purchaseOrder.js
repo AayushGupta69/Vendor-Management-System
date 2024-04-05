@@ -1,6 +1,7 @@
 const express = require("express");
 const zodPurchaseOrder = require("../zod/zod-purchaseOrder");
 const {purchaseOrderExists, createPurchaseOrder, purchaseOrder} = require("../database");
+const {purchaseOrderUpdateBody} = require("../zod/updateBody");
 
 const router = express.Router();
 
@@ -57,6 +58,27 @@ router.get("/:poNumber", async (req, res) => {
     catch (e) {
         console.error("Error during retrieving purchase order details", e);
         return res.status(500).json({message: "Failed to retrieve purchase order details."});
+    }
+})
+
+router.put("/:poNumber", async (req, res) => {
+    try {
+        const poNumber = req.params.poNumber;
+        const {success, data} = purchaseOrderUpdateBody.safeParse(req.body);
+        if(!success){
+            return res.status(400).json({message: "Invalid purchase order data"});
+        }
+
+        const updateSuccess = await purchaseOrder.updateOne({poNumber}, data);
+        if(updateSuccess.nModified === 0){
+            return res.status(404).json({message: "Purchase order not found or no changes were made."});
+        }
+
+        return res.status(200).json({message: "Successfully updated purchase order details."});
+    }
+    catch (e) {
+        console.error("Error while updating purchase order details: ", e);
+        return res.status(500).json({message: "Internal Server Error"});
     }
 })
 

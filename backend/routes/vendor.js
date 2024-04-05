@@ -3,8 +3,8 @@ const {vendorExists, createVendor, vendor, verifyPassword, hashPassword} = requi
 const zodVendor = require("../zod/zod-vendor");
 const signInBody = require("../zod/signInBody");
 const jwt = require("jsonwebtoken");
-const updateBody = require("../zod/updateBody");
 const authMiddleware = require("../middlewares/userAuth");
+const {vendorUpdateBody} = require("../zod/updateBody");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -86,7 +86,7 @@ router.get("/:vendorCode", async (req, res) => {
 router.put("/:vendorCode", authMiddleware, async (req, res) => {
     try {
         const vendorCode = req.params.vendorCode;
-        const {success, data} = updateBody.safeParse(req.body);
+        const {success, data} = vendorUpdateBody.safeParse(req.body);
         if(!success){
             return res.status(400).json({message: "Invalid vendor data"});
         }
