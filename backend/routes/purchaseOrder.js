@@ -44,4 +44,20 @@ router.get("/", async (req, res) => {
     }
 })
 
+router.get("/:poNumber", async (req, res) => {
+    try {
+        const poNumber = req.params.poNumber;
+        const foundPurchaseOrder = await purchaseOrder.findOne({poNumber});
+        if(!foundPurchaseOrder){
+            return res.status(404).json({message: "Purchase order not found."});
+        }
+
+        return res.status(200).json({foundPurchaseOrder});
+    }
+    catch (e) {
+        console.error("Error during retrieving purchase order details", e);
+        return res.status(500).json({message: "Failed to retrieve purchase order details."});
+    }
+})
+
 module.exports = router;
