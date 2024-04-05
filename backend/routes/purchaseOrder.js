@@ -2,6 +2,7 @@ const express = require("express");
 const zodPurchaseOrder = require("../zod/zod-purchaseOrder");
 const {purchaseOrderExists, createPurchaseOrder, purchaseOrder} = require("../database");
 const {purchaseOrderUpdateBody} = require("../zod/updateBody");
+const authMiddleware = require("../middlewares/userAuth");
 
 const router = express.Router();
 
@@ -61,7 +62,7 @@ router.get("/:poNumber", async (req, res) => {
     }
 })
 
-router.put("/:poNumber", async (req, res) => {
+router.put("/:poNumber", authMiddleware, async (req, res) => {
     try {
         const poNumber = req.params.poNumber;
         const {success, data} = purchaseOrderUpdateBody.safeParse(req.body);
@@ -78,6 +79,22 @@ router.put("/:poNumber", async (req, res) => {
     }
     catch (e) {
         console.error("Error while updating purchase order details: ", e);
+        return res.status(500).json({message: "Internal Server Error"});
+    }
+})
+
+router.delete("/:poNumber", authMiddleware, async (req, res) => {
+    try {
+        const poNumber = req.params.poNumber;
+        const success = await purchaseOrder.deleteOne({poNumber});
+        if(success.deletedCount === 0){
+            return res.status(404).json({ message: "Error deleting purchase order" });
+        }
+
+        return res.status(200).json({ message: "Purchase order deleted successfully" });
+    }
+    catch (e) {
+        console.error("Error while deleting purchase order details: ", e);
         return res.status(500).json({message: "Internal Server Error"});
     }
 })
