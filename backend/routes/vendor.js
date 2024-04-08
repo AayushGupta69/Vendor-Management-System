@@ -124,4 +124,8 @@ router.delete("/:vendorCode", authMiddleware, async (req, res) => {
     }
 })
 
+router.get("/:vendorCode/performance", authMiddleware, async (req, res) => {
+
+})
+
 module.exports = router;
