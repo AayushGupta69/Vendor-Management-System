@@ -59,7 +59,7 @@ router.post("/signin", async (req, res) => {
 
         const token = jwt.sign({vendorCode: existingVendor.vendorCode, role: existingVendor.role}, process.env.JWT_SECRET);
 
-        return res.status(200).json({token});
+        return res.status(200).json({token, role: existingVendor.role});
     }
     catch (e) {
         console.error("Error during sign-in: ", e);
