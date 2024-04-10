@@ -16,8 +16,7 @@ export const SignInPage = () => {
                 <Heading label="Vendor Management System"/>
             </div>
             <div>
-                <img src="src/assets/Vendor Management System.webp" alt="Vendor Management System GIF"
-                     className="mt-4 mx-auto h-40 w-full mb-10"/>
+                <img src="src/assets/Vendor Management System.webp" alt="Vendor Management System GIF" className="mt-4 mx-auto h-40 w-full mb-10"/>
             </div>
             <div className="flex flex-col justify-center">
                 <div className="rounded-lg bg-white w-80 text-center p-1 h-max px-4">
