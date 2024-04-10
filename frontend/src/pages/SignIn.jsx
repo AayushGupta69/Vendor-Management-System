@@ -35,6 +35,7 @@ export const SignInPage = () => {
                                 password
                             });
                             localStorage.setItem("token", response.data.token);
+                            localStorage.setItem("role", response.data.role);
                         }}/>
                     </div>
                     <BottomWarning label={"Dont have an account?"} buttonText={"Sign Up"} to={"/signup"}/>
