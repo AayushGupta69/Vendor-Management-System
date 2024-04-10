@@ -57,7 +57,7 @@ router.post("/signin", async (req, res) => {
             return res.status(403).json({message: "Incorrect password. Please double-check your password and try again."})
         }
 
-        const token = jwt.sign({vendorCode: existingVendor.vendorCode}, process.env.JWT_SECRET);
+        const token = jwt.sign({vendorCode: existingVendor.vendorCode, role: existingVendor.role}, process.env.JWT_SECRET);
 
         return res.status(200).json({token});
     }

@@ -7,6 +7,11 @@ const vendorSchema = new mongoose.Schema({
         trim: true,
         maxLength: 30
     },
+    role: {
+        type: String,
+        enum: ["Admin", "User"],
+        default: "User"
+    },
     contactDetails: {
         type: String,
         required: true,

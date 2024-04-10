@@ -2,6 +2,7 @@ const zod = require("zod");
 
 const zodVendor = zod.object({
     name: zod.string().max(30),
+    role: zod.string().optional(),
     contactDetails: zod.string(),
     address: zod.string(),
     vendorCode: zod.string(),
