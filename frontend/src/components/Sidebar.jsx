@@ -25,7 +25,7 @@ export const Sidebar = () => {
                 </button>
             ) : (
                 <svg onClick={() => setShowSidebar(!showSidebar)}
-                     className="fixed z-30 items-center cursor-pointer left-10 top-6"
+                     className="fixed z-30 items-center cursor-pointer left-10 top-16"
                      fill="#2563EB"
                      viewBox="0 0 100 80"
                      width="40"
@@ -37,7 +37,7 @@ export const Sidebar = () => {
                 </svg>
             )}
             {showSidebar && (
-                <div className="top-0 left-0 fixed bg-blue-400 w-[25vw] h-full p-10 pr-10 text-white z-40 ease-in-out duration-300 translate-x-0">
+                <div className="top-0 left-0 fixed bg-blue-950 w-[25vw] h-full p-10 pr-10 text-white z-40 ease-in-out duration-300 translate-x-0">
                     <div className="mt-6">
                         <Button label="Logout" onClick={handleLogout} />
                     </div>
