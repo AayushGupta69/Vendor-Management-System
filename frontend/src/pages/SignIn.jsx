@@ -12,6 +12,18 @@ export const SignInPage = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
+    const handleSignIn = async () => {
+        const response = await axios.post("http://localhost:3000/api/vendors/signin", {
+            vendorCode,
+            password
+        });
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("role", response.data.role);
+        if(response.data.role === "User") {
+            navigate("/user_dashboard");
+        }
+    }
+
     return (
         <div className="bg-blue-600 h-screen flex flex-col justify-center items-center">
             <div className="flex justify-between">
@@ -30,17 +42,7 @@ export const SignInPage = () => {
                             setPassword(e.target.value);
                         }}/>
                         <div className="pt-4">
-                            <Button label="Sign In" onClick={async () => {
-                                const response = await axios.post("http://localhost:3000/api/vendors/signin", {
-                                    vendorCode,
-                                    password
-                                });
-                                localStorage.setItem("token", response.data.token);
-                                localStorage.setItem("role", response.data.role);
-                                if(response.data.role === "User") {
-                                    navigate("/user_dashboard");
-                                }
-                            }}/>
+                            <Button label="Sign In" onClick={handleSignIn}/>
                         </div>
                         <BottomWarning label={"Dont have an account?"} buttonText={"Sign Up"} to={"/signup"}/>
                     </div>
