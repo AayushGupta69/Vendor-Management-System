@@ -37,7 +37,7 @@ export const Sidebar = () => {
                 </svg>
             )}
             {showSidebar && (
-                <div className={`top-0 left-0 fixed bg-blue-400 w-[25vw] h-full p-10 pr-10 text-white z-40 ease-in-out duration-300 translate-x-0`}>
+                <div className="top-0 left-0 fixed bg-blue-400 w-[25vw] h-full p-10 pr-10 text-white z-40 ease-in-out duration-300 translate-x-0">
                     <div className="mt-4">
                         <Button label="Logout" onClick={handleLogout} />
                     </div>
