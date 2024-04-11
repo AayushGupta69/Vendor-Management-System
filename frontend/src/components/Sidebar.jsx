@@ -1,7 +1,16 @@
 import {useState} from "react";
+import {Button} from "./Button.jsx";
+import {useNavigate} from "react-router-dom";
 
 export const Sidebar = () => {
     const [showSidebar, setShowSidebar] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        navigate("/");
+    }
 
     return (
         <>
@@ -28,8 +37,10 @@ export const Sidebar = () => {
                 </svg>
             )}
             {showSidebar && (
-                <div className={`top-0 left-0 fixed bg-blue-600 w-[35vw] h-full p-10 pr-10 text-white z-40 ease-in-out duration-300 translate-x-0`}>
-                    <h2 className="text-2xl text-white pt-6">I am a sidebar</h2>
+                <div className={`top-0 left-0 fixed bg-blue-400 w-[25vw] h-full p-10 pr-10 text-white z-40 ease-in-out duration-300 translate-x-0`}>
+                    <div className="mt-4">
+                        <Button label="Logout" onClick={handleLogout} />
+                    </div>
                 </div>
             )}
         </>
