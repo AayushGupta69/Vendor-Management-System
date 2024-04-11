@@ -37,7 +37,7 @@ export const SignInPage = () => {
                                 });
                                 localStorage.setItem("token", response.data.token);
                                 localStorage.setItem("role", response.data.role);
-                                if(response.data.role == "User") {
+                                if(response.data.role === "User") {
                                     navigate("/user_dashboard");
                                 }
                             }}/>
