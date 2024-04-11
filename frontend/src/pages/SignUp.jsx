@@ -48,15 +48,15 @@ export const SignUpPage = () => {
     }
 
     return (
-        <div className="bg-slate-200 h-screen flex flex-col justify-center items-center">
+        <div className="bg-blue-600 h-screen flex flex-col justify-center items-center">
             <div className="flex justify-between">
                 <div className="flex flex-col justify-center">
-                    <Heading label="Vendor Management System"/>
+                    <Heading label="Vendor Management System" color="text-white" />
                     <img src="src/assets/Vendor Management System.webp" alt="Vendor Management System GIF" className="mt-20 mx-auto h-40 w-auto mb-10"/>
                 </div>
                 <div className="pl-28">
                     <div className="rounded-lg bg-white w-96 text-center p-1 h-max px-4">
-                        <Heading label="Sign Up"/>
+                        <Heading label="Sign Up" color="text-blue-500"/>
                         <SubHeading label="Enter your details to sign up"/>
                         <InputBox label="Name" type="text" placeholder="Vendor Name" onChange={(e) => {
                             setName(e.target.value);
