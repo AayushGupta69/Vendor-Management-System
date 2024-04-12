@@ -1,16 +1,7 @@
 import {useState} from "react";
-import {Button} from "./Button.jsx";
-import {useNavigate} from "react-router-dom";
 
 export const Sidebar = () => {
     const [showSidebar, setShowSidebar] = useState(false);
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("role");
-        navigate("/");
-    }
 
     return (
         <>
@@ -25,7 +16,7 @@ export const Sidebar = () => {
                 </button>
             ) : (
                 <svg onClick={() => setShowSidebar(!showSidebar)}
-                     className="fixed z-30 items-center cursor-pointer left-10 top-16"
+                     className="fixed z-30 items-center cursor-pointer left-10 top-16 mt-6"
                      fill="#2563EB"
                      viewBox="0 0 100 80"
                      width="40"
@@ -38,8 +29,8 @@ export const Sidebar = () => {
             )}
             {showSidebar && (
                 <div className="top-0 left-0 fixed bg-blue-950 w-[25vw] h-full p-10 pr-10 text-white z-40 ease-in-out duration-300 translate-x-0">
-                    <div className="mt-6">
-                        <Button label="Logout" onClick={handleLogout} />
+                    <div className="mt-6 text-xl">
+                        <h2>I am a Sidebar</h2>
                     </div>
                 </div>
             )}
