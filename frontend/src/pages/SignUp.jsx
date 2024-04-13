@@ -5,6 +5,7 @@ import {useState} from "react";
 import {BottomWarning} from "../components/BottomWarning.jsx";
 import {Button} from "../components/Button.jsx";
 import axios from "axios";
+import {BottomNavBar} from "../components/BottomNavBar.jsx";
 
 export const SignUpPage = () => {
     const [name, setName] = useState("");
@@ -93,9 +94,7 @@ export const SignUpPage = () => {
                 </div>
             </div>
 
-            <div className="bg-blue-950 text-white py-2 px-4 text-center text-xl">
-                <h2>© 2024 Vendor Management System. All rights reserved.</h2>
-            </div>
+            <BottomNavBar />
         </div>
     )
 }

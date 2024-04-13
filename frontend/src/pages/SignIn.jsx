@@ -6,6 +6,7 @@ import {BottomWarning} from "../components/BottomWarning.jsx";
 import {useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {BottomNavBar} from "../components/BottomNavBar.jsx";
 
 export const SignInPage = () => {
     const [vendorCode, setVendorCode] = useState("");
@@ -58,9 +59,7 @@ export const SignInPage = () => {
                 </div>
             </div>
 
-            <div className="bg-blue-950 text-white py-2 px-4 text-center text-xl">
-                <h2>© 2024 Vendor Management System. All rights reserved.</h2>
-            </div>
+            <BottomNavBar />
         </div>
     )
 }

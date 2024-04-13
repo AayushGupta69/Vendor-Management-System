@@ -3,6 +3,7 @@ import {Heading} from "../components/Heading.jsx";
 import {Button} from "../components/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import {Card} from "../components/Card.jsx";
+import {BottomNavBar} from "../components/BottomNavBar.jsx";
 
 export const UserDashboard = () => {
     const navigate = useNavigate();
@@ -40,9 +41,7 @@ export const UserDashboard = () => {
                 </div>
             </div>
 
-            <div className="bg-blue-950 text-white py-2 px-4 text-center text-xl">
-                <h2>© 2024 Vendor Management System. All rights reserved.</h2>
-            </div>
+            <BottomNavBar />
         </div>
     )
 }
