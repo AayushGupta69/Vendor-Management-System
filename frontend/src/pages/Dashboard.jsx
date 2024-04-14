@@ -1,31 +1,13 @@
 import {Sidebar} from "../components/Sidebar.jsx";
 import {Heading} from "../components/Heading.jsx";
-import {Button} from "../components/Button.jsx";
-import {useNavigate} from "react-router-dom";
 import {Card} from "../components/Card.jsx";
 import {BottomNavBar} from "../components/BottomNavBar.jsx";
+import {TopNavBarWithLogout} from "../components/TopNavBarWithLogout.jsx";
 
 export const UserDashboard = () => {
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("role");
-        navigate("/");
-    }
-
     return(
         <div className="flex flex-col min-h-screen">
-            <div className="bg-blue-950 text-white py-2 px-4 text-center text-xl">
-                <div className="grid grid-cols-10">
-                    <div className="col-span-9 ml-36 mt-2">
-                        <h2>Vendor Management System</h2>
-                    </div>
-                    <div className="col-span-1 ml-5">
-                        <Button label="Logout" onClick={handleLogout}/>
-                    </div>
-                </div>
-            </div>
+            <TopNavBarWithLogout />
 
             <div className="flex-1">
                 <Sidebar/>
