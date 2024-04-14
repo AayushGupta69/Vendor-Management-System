@@ -17,7 +17,6 @@ const purchaseOrderSchema = new mongoose.Schema({
     },
     deliveryDate: {
         type: Date,
-        required: true
     },
     expectedDeliveryDate: {
         type: Date,
