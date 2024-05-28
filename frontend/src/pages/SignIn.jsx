@@ -20,6 +20,7 @@ export const SignInPage = () => {
         });
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("role", response.data.role);
+        localStorage.setItem("name", response.data.name);
         if(response.data.role === "User") {
             navigate("/user_dashboard");
         }
