@@ -1,12 +1,9 @@
-import {useState} from "react";
-
-export default function TagInput() {
-    const [tags, setTags] = useState([]);
-
+export default function TagInput({tags, setTags}) {
     const addTag = (e) => {
         if(e.key === "Enter"){
-            if(e.target.value.length > 0){
-                setTags([...tags, e.target.value]);
+            const newTag = e.target.value.trim();
+            if(newTag.length > 0 && !tags.includes(newTag)){
+                setTags([...tags, newTag]);
                 e.target.value = "";
             }
         }
@@ -28,15 +25,20 @@ export default function TagInput() {
                     return (
                         <div key={index} className="flex items-center m-2 p-1 rounded shadow bg-white">
                             <span className="p-1 text-blue-500">{tag}</span>
-                            <span
+                            <button
                                 className="p-1 text-red-500 px-2 py-1 cursor-pointer"
-                                onClick={() => removeTag(tag)}>
+                                onClick={() => removeTag(tag)}
+                                aria-label={`Remove tag: ${tag}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                     stroke-width="1.5" stroke="currentColor" className="w-6 h-6 transition-transform transform-gpu hover:scale-125">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                    strokeWidth="1.5" stroke="currentColor"
+                                    className="w-6 h-6 transition-transform transform-gpu hover:scale-125">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"
+                                    />
                                 </svg>
-                            </span>
+                            </button>
                         </div>
                     )
                 })}
