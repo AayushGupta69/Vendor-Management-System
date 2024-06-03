@@ -6,9 +6,9 @@ const authMiddleware = require("../middlewares/userAuth");
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
     try {
-        const {success, data} = zodPurchaseOrder.safeParse(req.body);
+        const {success, data, error} = zodPurchaseOrder.safeParse(req.body);
         if(!success){
             return res.status(400).json({message: "Invalid purchase order data"});
         }
