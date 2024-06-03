@@ -6,14 +6,28 @@ import {Button} from "../../components/Button.jsx";
 import TagInput from "../../components/TagInput.jsx";
 
 export const CreateNewPurchaseOrder = () => {
-    const [poNumber, setPoNumber] = useState(0);
+    const [poNumber, setPoNumber] = useState("");
     const [vendor, setVendor] = useState("");
     const [orderDate, setOrderDate] = useState("");
     const [expectedDeliveryDate, setExpectedDeliveryDate] = useState("");
+    const [items, setItems] = useState([]);
     const [quantity, setQuantity] = useState(0);
 
     const handleCreatePurchaseOrder = async () => {
+        const itemsObject = items.reduce((acc, item) => {
+            const [key, value] = item.split(": ");
+            acc[key] = parseInt(value, 10);
+            return acc;
+        }, {});
 
+        const purchaseOrderData = {
+            poNumber,
+            vendor,
+            orderDate,
+            expectedDeliveryDate,
+            items: itemsObject,
+            quantity: parseInt(quantity, 10)
+        }
     }
 
     return (
@@ -37,7 +51,7 @@ export const CreateNewPurchaseOrder = () => {
                         }}/>
 
                         <div>
-                            <TagInput />
+                            <TagInput tags={items} setTags={setItems} />
                         </div>
 
                         <InputBox label="Total Quantity" placeholder="Total Quantity" type="number" onChange={(e) => {
