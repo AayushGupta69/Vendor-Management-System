@@ -26,7 +26,7 @@ export const CreateNewPurchaseOrder = () => {
             orderDate,
             expectedDeliveryDate,
             items: itemsObject,
-            quantity: parseInt(quantity, 10)
+            quantity
         }
     }
 
