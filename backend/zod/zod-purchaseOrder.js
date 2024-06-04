@@ -6,7 +6,7 @@ const zodPurchaseOrder = zod.object({
     orderDate: zod.string(),
     deliveryDate: zod.string().optional(),
     expectedDeliveryDate: zod.string(),
-    items: zod.object({}),
+    items: zod.record(zod.string(), zod.number()),
     quantity: zod.number(),
     status: zod.enum(["pending", "completed", "canceled"]).optional(),
     qualityRating: zod.number().optional(),
