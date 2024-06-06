@@ -4,6 +4,7 @@ import {TopNavBarWithLogout} from "../../components/TopNavBarWithLogout.jsx";
 import {BottomNavBar} from "../../components/BottomNavBar.jsx";
 import {Button} from "../../components/Button.jsx";
 import TagInput from "../../components/TagInput.jsx";
+import axios from "axios";
 
 export const CreateNewPurchaseOrder = () => {
     const [poNumber, setPoNumber] = useState("");
@@ -12,6 +13,7 @@ export const CreateNewPurchaseOrder = () => {
     const [expectedDeliveryDate, setExpectedDeliveryDate] = useState("");
     const [items, setItems] = useState([]);
     const [quantity, setQuantity] = useState(0);
+    const [message, setMessage] = useState("");
 
     const handleCreatePurchaseOrder = async () => {
         const itemsObject = items.reduce((acc, item) => {
@@ -26,7 +28,33 @@ export const CreateNewPurchaseOrder = () => {
             orderDate,
             expectedDeliveryDate,
             items: itemsObject,
-            quantity
+            quantity: parseInt(quantity, 10)
+        }
+
+        try {
+            const response = await axios.post("http://localhost:3000/api/purchase_order/", purchaseOrderData, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                }
+            });
+            setMessage(response.data.message);
+            if(response.data.message === "Purchase order created successfully"){
+                setPoNumber("");
+                setVendor("");
+                setOrderDate("");
+                setExpectedDeliveryDate("");
+                setItems([]);
+                setQuantity(0);
+            }
+            setTimeout(() => {
+                setMessage("");
+            }, 5000);
+        }
+        catch (e) {
+            setMessage(e.message);
+            setTimeout(() => {
+                setMessage("");
+            }, 5000);
         }
     }
 
@@ -44,6 +72,7 @@ export const CreateNewPurchaseOrder = () => {
                             setVendor(e.target.value);
                         }}/>
                         <InputBox label="Order Date" type="date" onChange={(e) => {
+                            console.log(e.target.value);
                             setOrderDate(e.target.value);
                         }}/>
                         <InputBox label="Expected Delivery Date" type="date" onChange={(e) => {
@@ -60,6 +89,7 @@ export const CreateNewPurchaseOrder = () => {
                         <div className="mt-4">
                             <Button label="Submit" type="submit" onClick={handleCreatePurchaseOrder} />
                         </div>
+                        {message && <div className="p-1 rounded bg-red-200 text-red-500">{message}</div>}
                     </div>
                 </div>
             </div>
