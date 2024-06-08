@@ -5,6 +5,7 @@ import {BottomNavBar} from "../../components/BottomNavBar.jsx";
 import {Button} from "../../components/Button.jsx";
 import TagInput from "../../components/TagInput.jsx";
 import axios from "axios";
+import {Sidebar} from "../../components/Sidebar.jsx";
 
 export const CreateNewPurchaseOrder = () => {
     const [poNumber, setPoNumber] = useState("");
@@ -62,6 +63,7 @@ export const CreateNewPurchaseOrder = () => {
         <div className="flex flex-col min-h-screen">
             <TopNavBarWithLogout />
 
+            <Sidebar />
             <div className="flex-1">
                 <div className="flex justify-center">
                     <div className="rounded-lg bg-slate-300 w-96 text-center p-1 h-max px-4 mt-10 mb-10">
