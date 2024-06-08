@@ -6,6 +6,8 @@ import {Button} from "../../components/Button.jsx";
 import TagInput from "../../components/TagInput.jsx";
 import axios from "axios";
 import {Sidebar} from "../../components/Sidebar.jsx";
+import {Heading} from "../../components/Heading.jsx";
+import {useNavigate} from "react-router-dom";
 
 export const CreateNewPurchaseOrder = () => {
     const [poNumber, setPoNumber] = useState("");
@@ -15,6 +17,7 @@ export const CreateNewPurchaseOrder = () => {
     const [items, setItems] = useState([]);
     const [quantity, setQuantity] = useState(0);
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleCreatePurchaseOrder = async () => {
         const itemsObject = items.reduce((acc, item) => {
@@ -49,6 +52,7 @@ export const CreateNewPurchaseOrder = () => {
             }
             setTimeout(() => {
                 setMessage("");
+                navigate("/user_dashboard");
             }, 5000);
         }
         catch (e) {
@@ -66,6 +70,9 @@ export const CreateNewPurchaseOrder = () => {
             <Sidebar />
             <div className="flex-1">
                 <div className="flex justify-center">
+                    <Heading label="Create a New Purchase Order" color="text-blue-500"/>
+                </div>
+                <div className="flex justify-center">
                     <div className="rounded-lg bg-slate-300 w-96 text-center p-1 h-max px-4 mt-10 mb-10">
                         <InputBox label="PO Number" placeholder="PO Number" type="text" onChange={(e) => {
                             setPoNumber(e.target.value);
@@ -82,21 +89,21 @@ export const CreateNewPurchaseOrder = () => {
                         }}/>
 
                         <div>
-                            <TagInput tags={items} setTags={setItems} />
+                            <TagInput tags={items} setTags={setItems}/>
                         </div>
 
                         <InputBox label="Total Quantity" placeholder="Total Quantity" type="number" onChange={(e) => {
                             setQuantity(e.target.value);
                         }}/>
                         <div className="mt-4">
-                            <Button label="Submit" type="submit" onClick={handleCreatePurchaseOrder} />
+                            <Button label="Submit" type="submit" onClick={handleCreatePurchaseOrder}/>
                         </div>
                         {message && <div className="p-1 rounded bg-red-200 text-red-500">{message}</div>}
                     </div>
                 </div>
             </div>
 
-            <BottomNavBar />
+            <BottomNavBar/>
         </div>
     )
 }
