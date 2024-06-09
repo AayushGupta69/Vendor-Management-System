@@ -98,7 +98,7 @@ export const CreateNewPurchaseOrder = () => {
                         <div className="mt-4">
                             <Button label="Submit" type="submit" onClick={handleCreatePurchaseOrder}/>
                         </div>
-                        {message && <div className="p-1 rounded bg-red-200 text-red-500">{message}</div>}
+                        {message && <div className={`${message === "Purchase order created successfully" ? "p-1 rounded bg-green-200 text-green-500" : "p-1 rounded bg-red-200 text-red-500"}`}>{message}</div>}
                     </div>
                 </div>
             </div>
