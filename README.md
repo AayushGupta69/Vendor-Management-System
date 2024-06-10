@@ -14,3 +14,7 @@ This is a Vendor Management System developed using the MERN (MongoDB, Express.js
 - **User Dashboard**
 
 ![Screenshot 2024-06-06 104626](https://github.com/AayushGupta69/Vendor-Management-System/assets/72346589/eb5a103a-a21a-4be8-9416-b49d82aefc64)
+
+- **Create New Purchase Order**
+
+![Screenshot 2024-06-10 213142](https://github.com/AayushGupta69/Vendor-Management-System/assets/72346589/f02ebf59-753e-4b69-ba2d-eb899149a9e3)
